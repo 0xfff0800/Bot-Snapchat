@@ -114,9 +114,3 @@ options.use_new_wda = True
 To request the service or contribute to its development:
 
 📨 Telegram : [Click here](https://t.me/flaah999)
-
----
-
-## 🏷️ Tags
-
-\#SmartTools #AutoStreak #Telegram #Snapchat #iOS #Bots #Appium #DigitalServices
