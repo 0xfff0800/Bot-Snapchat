@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>إرسال بوست إلى سناب</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen p-6" style="background-color: #fcbc14;">
+  <div class="flex justify-center mb-6">
+    <img src="{{ url_for('static', filename='logo-snap.png') }}" alt="Snapchat Logo" class="w-16 h-16" />
+  </div>
+  <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-lg p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="col-span-1">
+      <div class="relative w-[280px] h-[580px] mx-auto border-[14px] border-black rounded-[40px] overflow-hidden shadow-xl bg-black flex items-center justify-center">
+        <img
+          id="snapPreview"
+          src="{{ url_for('static', filename='telegram.png') }}"
+          class="rounded-[30px] border-0 w-full h-full object-contain bg-black"
+          alt="Snap Preview"
+        />
+      </div>
+    </div>
+    <div class="col-span-2">
+      <h2 class="text-2xl font-semibold mb-4 text-gray-800">تحميل تيليجرام</h2>
+      {% if message %}
+        <div class="mb-4 p-3 rounded bg-green-100 text-green-800 font-medium text-sm">
+          {{ message }}
+        </div>
+      {% endif %}
+      <form action="/Telegraph.Post" method="POST" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">اسم المستخدم في سناب</label>
+          <input type="text" name="username" required
+                 class="mt-1 block w-full border border-gray-300 rounded-md p-2" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">رابط البوست في تيليجرام</label>
+          <input type="url" name="post_url" required
+                 class="mt-1 block w-full border border-gray-300 rounded-md p-2" />
+        </div>
+        <button type="submit"
+                class="bg-black text-white font-semibold px-4 py-2 rounded hover:bg-gray-800 shadow">
+          إرسال الآن
+        </button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

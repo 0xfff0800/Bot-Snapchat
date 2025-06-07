@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Snap Strak</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen p-6" style="background-color: #fcbc14;">
+  <div class="flex justify-center mb-6">
+    <img src="{{ url_for('static', filename='logo-snap.png') }}" alt="Snapchat Logo" class="w-16 h-16" />
+  </div>
+  <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-lg p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="col-span-1">
+      <div class="relative w-[280px] h-[580px] mx-auto border-[14px] border-black rounded-[40px] overflow-hidden shadow-xl bg-black">
+        <div class="absolute top-[6px] left-1/2 -translate-x-1/2 w-[60px] h-[6px] bg-gray-800 rounded-full z-10"></div>
+        <div class="absolute inset-0 p-[2px] bg-black flex items-center justify-center" id="videoWrapper">
+          <img
+            id="appleLogo"
+            src="{{ url_for('static', filename='icons8-apple-logo-150.png') }}"
+            class="pointer-events-none opacity-90 absolute z-50"
+            style="width:80px; height:80px; top: 50%; left: 50%; transform: translate(-50%, -50%);"
+            alt="Apple logo"
+          />
+          <video
+            id="videoPlayer"
+            class="rounded-[30px] border-0 absolute top-0 left-0 w-full h-full object-contain bg-black hidden"
+            style="aspect-ratio: 9 / 16;"
+            controlslist="nodownload nofullscreen noremoteplayback"
+            playsinline
+            autoplay
+            onplay="document.getElementById('appleLogo').style.display = 'none'; this.classList.remove('hidden');"
+          >
+            <source id="videoSource" src="" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <button id="replayBtn" onclick="replayVideo()" class="hidden absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white text-black px-4 py-1 rounded shadow">
+            🔁 إعادة التشغيل
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-span-2">
+      <h2 class="text-2xl font-semibold mb-4">نشر ستريك للمستخدمين لديك</h2>
+      <form id="spotlightForm" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">اسم المستخدم</label>
+          <input type="text" id="username" required class="mt-1 block w-full border border-gray-300 rounded-md p-2" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">API Key</label>
+          <input type="text" id="apikey" required class="mt-1 block w-full border border-gray-300 rounded-md p-2" />
+        </div>
+        <button type="submit" class="bg-black text-white font-semibold px-4 py-2 rounded hover:bg-gray-800 shadow">
+          نشر الآن
+        </button>
+      </form>
+      <pre id="result" class="mt-4 bg-gray-100 p-4 rounded text-sm text-gray-700"></pre>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("spotlightForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const username = document.getElementById("username").value;
+      const apikey = document.getElementById("apikey").value;
+      const resultEl = document.getElementById("result");
+
+      resultEl.innerHTML = `<div class="flex items-center gap-2 text-sm text-gray-700">
+  <svg class="animate-spin h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+    <path class="opacity-75" fill="currentColor"
+      d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z">
+    </path>
+  </svg>
+  <span>جاري المعالجة</span>
+</div>`;
+
+      try {
+        const res = await fetch("/Strak_post", {
+          method: "POST",
+          headers: {
+            "Authorization": apikey,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ username})
+        });
+
+        const data = await res.json();
+        resultEl.textContent = data.output || JSON.stringify(data);
+
+        if (data.output && data.output.includes("https://ad13-2001-16a2-4536-7800-d50f-27fd-44ad-3aed.ngrok-free.app/video/")) {
+          const match = data.output.match(/https:\/\/ad13-2001-16a2-4536-7800-d50f-27fd-44ad-3aed.ngrok-free.app\/video\/[^\s]+/);
+          if (match) {
+            const videoPlayer = document.getElementById("videoPlayer");
+            document.getElementById("videoSource").src = match[0].replace("localhost", "ad13-2001-16a2-4536-7800-d50f-27fd-44ad-3aed.ngrok-free.app");
+            videoPlayer.load();
+            videoPlayer.play();
+          }
+        }
+
+      } catch (err) {
+        resultEl.textContent = "❌ فشل الاتصال";
+      }
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const resultEl = document.getElementById("result");
+      const lastOutput = resultEl.textContent;
+      if (lastOutput && lastOutput.includes("https://ad13-2001-16a2-4536-7800-d50f-27fd-44ad-3aed.ngrok-free.app/video/")) {
+        const match = lastOutput.match(/https:\/\/ad13-2001-16a2-4536-7800-d50f-27fd-44ad-3aed.ngrok-free.app\/video\/[^\s]+/);
+        if (match) {
+          document.getElementById("videoSource").src = match[0].replace("localhost", "ad13-2001-16a2-4536-7800-d50f-27fd-44ad-3aed.ngrok-free.app");
+          document.getElementById("videoPlayer").load();
+        }
+      }
+    });
+    const video = document.getElementById("videoPlayer");
+
+    function showReplayButton() {
+      video.classList.add('hidden');
+      document.getElementById('replayContainer').classList.remove('hidden');
+    }
+
+    function replayVideo() {
+      video.currentTime = 0;
+      video.classList.remove('hidden');
+      document.getElementById('replayContainer').classList.add('hidden');
+      video.play();
+    }
+
+    video.onended = showReplayButton;
+  </script>
+</body>
+<div id="replayContainer" class="mt-4 text-center hidden">
+  <button onclick="replayVideo()" class="bg-black text-white px-4 py-2 rounded hover:bg-gray-800">
+    🔁 إعادة التشغيل
+  </button>
+</div>
+</html>

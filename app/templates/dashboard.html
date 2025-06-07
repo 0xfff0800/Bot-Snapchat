@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Services Overview | Snap Automation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 min-h-screen flex flex-col items-center justify-start p-8">
+    <div class="bg-white bg-opacity-80 rounded-full p-6 shadow-lg mb-8 flex items-center justify-center">
+    <img src="{{ url_for('static', filename='logo-snap.png') }}" alt="Snapchat Logo" class="w-16 h-16" />
+    </div>
+    <div class="fixed top-4 right-4 z-50">
+        <button id="langSwitch" onclick="toggleLang()" class="bg-yellow-900 text-white font-semibold px-4 py-2 rounded-full shadow hover:bg-yellow-700 transition">
+            🌐 English
+        </button>
+    </div>
+    <h1 id="pageTitle" class="text-4xl font-extrabold text-yellow-900 mb-12 text-center">خدماتنا المميزة</h1>
+    <p id="pageSubtitle" class="text-lg text-yellow-900 mt-2 text-center font-medium">
+        خدماتنا لا تقتصر على سناب شات فقط — نحن نوفر حلولًا ذكية مثل حفظ المحادثات من تيليجرام، إدارة المحتوى، والمزيد من الأدوات المتقدمة
+        التي تساعدك على تعزيز تجربتك في عالم التواصل الاجتماعي. استكشف خدماتنا المتنوعة التي تشمل تحليل الحسابات، أرشفة القصص، وتنبيهات فورية عبر التليجرام
+    </p>
+
+    <p class="text-lg text-yellow-900 mt-2 text-center font-medium">
+    </p>
+    
+    <main class="w-full max-w-6xl">
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <!-- 1 -->
+            <a href="Report.Snapchat" class="relative bg-gradient-to-tr from-blue-700 to-blue-500 rounded-xl shadow-lg p-8 flex flex-col items-center text-white transform transition-transform duration-300 hover:scale-105">
+                {% if device_status == 'متاح' %}
+                <span class="absolute top-4 left-4 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">متاح</span>
+                {% else %}
+                <span class="absolute top-4 left-4 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">مشغول</span>
+                {% endif %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-6h13v6M9 11V7a4 4 0 018 0v4M3 17h6M3 17v-4a4 4 0 014-4h4" />
+                </svg>
+                <h2 id="reportTitle" class="text-2xl font-semibold mb-3">تقرير سناب شات</h2>
+                <p id="reportDesc" class="text-center mb-6">تحليل شامل لتقارير سناب شات لتتبع الأداء واتخاذ القرارات الذكية.</p>
+                {% if device_status == 'متاح' %}
+                <button class="serviceBtn mt-auto bg-white text-blue-700 font-bold py-2 px-6 rounded-full shadow-md hover:bg-gray-100 transition">الدخول للخدمة</button>
+                {% else %}
+                <button class="mt-auto bg-gray-300 text-gray-600 font-bold py-2 px-6 rounded-full shadow-md cursor-not-allowed" disabled>الجهاز مشغول حالياً</button>
+                {% endif %}
+            </a>
+            <!-- 2 -->
+            <a href="Story.Snapchat" class="relative bg-gradient-to-tr from-green-700 to-green-500 rounded-xl shadow-lg p-8 flex flex-col items-center text-white transform transition-transform duration-300 hover:scale-105">
+                {% if device_status == 'متاح' %}
+                <span class="absolute top-4 left-4 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">متاح</span>
+                {% else %}
+                <span class="absolute top-4 left-4 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">مشغول</span>
+                {% endif %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A2 2 0 0122 9.618v4.764a2 2 0 01-2.447 1.894L15 14M10 14l-4.553 2.276A2 2 0 014 14.382v-4.764a2 2 0 012.447-1.894L10 10m0 4v6m0-6L5 7m5 7l5-7" />
+                </svg>
+                <h2 id="spotlightTitle" class="text-2xl font-semibold mb-3">نشر إلى الأضواء</h2>
+                <p id="spotlightDesc" class="text-center mb-6">عرض قصص مميزة بطريقة جذابة تساعدك على جذب المزيد من المتابعين.</p>
+                {% if device_status == 'متاح' %}
+                <button class="serviceBtn mt-auto bg-white text-green-700 font-bold py-2 px-6 rounded-full shadow-md hover:bg-gray-100 transition">الدخول للخدمة</button>
+                {% else %}
+                <button class="mt-auto bg-gray-300 text-gray-600 font-bold py-2 px-6 rounded-full shadow-md cursor-not-allowed" disabled>الجهاز مشغول حالياً</button>
+                {% endif %}
+            </a>
+            <!-- 3 -->
+            <a href="Custom.Service" class="relative bg-gradient-to-tr from-purple-700 to-purple-500 rounded-xl shadow-lg p-8 flex flex-col items-center text-white transform transition-transform duration-300 hover:scale-105">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zM12 14v4m0 0H8m4 0h4" />
+                </svg>
+                <h2 id="extraTitle" class="text-2xl font-semibold mb-3">خدمة إضافية</h2>
+                <p id="extraDesc" class="text-center mb-6">وصف موجز للخدمة الإضافية التي نقدمها لتعزيز تجربتك.</p>
+                {% if device_status == 'متاح' %}
+                <button class="serviceBtn mt-auto bg-white text-purple-700 font-bold py-2 px-6 rounded-full shadow-md hover:bg-gray-100 transition">الدخول للخدمة</button>
+                {% else %}
+                <button class="mt-auto bg-gray-300 text-gray-600 font-bold py-2 px-6 rounded-full shadow-md cursor-not-allowed" disabled>الجهاز مشغول حالياً</button>
+                {% endif %}
+            </a>
+            <!-- 4: حفظ الصور تيليجرام -->
+            <a href="Telegraph.Post" class="relative bg-gradient-to-tr from-cyan-600 to-blue-300 rounded-xl shadow-lg p-8 flex flex-col items-center text-white transform transition-transform duration-300 hover:scale-105">
+                {% if device_status == 'متاح' %}
+                <span class="absolute top-4 left-4 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">متاح</span>
+                {% else %}
+                <span class="absolute top-4 left-4 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">مشغول</span>
+                {% endif %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 5v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2zm-4 4l-4 4-4-4" />
+                </svg>
+                <h2 id="telegramSaveTitle" class="text-2xl font-semibold mb-3">حفظ من التيليجرام</h2>
+                <p id="telegramSaveDesc" class="text-center mb-6">حفظ الصور و الفديوهات حتي لو مقفلة ميزة الحفظ في القناة بطريقة آمنة وسريعة</p>
+                {% if device_status == 'متاح' %}
+                <button class="serviceBtn mt-auto bg-white text-cyan-700 font-bold py-2 px-6 rounded-full shadow-md hover:bg-gray-100 transition">الدخول للخدمة</button>
+                {% else %}
+                <button class="mt-auto bg-gray-300 text-gray-600 font-bold py-2 px-6 rounded-full shadow-md cursor-not-allowed" disabled>الجهاز مشغول حالياً</button>
+                {% endif %}
+            </a>
+            <!-- 5: إرسال ستريك للكل -->
+            <a href="Strak.Snapchat" class="relative bg-gradient-to-tr from-red-600 to-pink-400 rounded-xl shadow-lg p-8 flex flex-col items-center text-white transform transition-transform duration-300 hover:scale-105">
+                {% if device_status == 'متاح' %}
+                <span class="absolute top-4 left-4 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">متاح</span>
+                {% else %}
+                <span class="absolute top-4 left-4 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">مشغول</span>
+                {% endif %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11c0-3.07-1.64-5.64-5-6.32V4a1 1 0 10-2 0v.68C6.64 5.36 5 7.929 5 11v3.159c0 .538-.214 1.055-.595 1.436L3 17h5m4 0v1a3 3 0 11-6 0v-1m6 0a3 3 0 11-6 0v-1" />
+                </svg>
+                <h2 id="hashtagMonitorTitle" class="text-2xl font-semibold mb-3">ستريك سناب</h2>
+                <p id="hashtagMonitorDesc" class="text-center mb-6">ارسل ستريك للكل بسرعة عالية وبضغطة واحدة فقط</p>
+                {% if device_status == 'متاح' %}
+                <button class="serviceBtn mt-auto bg-white text-red-700 font-bold py-2 px-6 rounded-full shadow-md hover:bg-gray-100 transition">الدخول للخدمة</button>
+                {% else %}
+                <button class="mt-auto bg-gray-300 text-gray-600 font-bold py-2 px-6 rounded-full shadow-md cursor-not-allowed" disabled>الجهاز مشغول حالياً</button>
+                {% endif %}
+            </a>
+        </section>
+    </main>
+<script>
+  let currentLang = 'ar';
+
+  const translations = {
+    ar: {
+      title: "خدماتنا المميزة",
+      page_subtitle: "خدماتنا لا تقتصر على سناب شات فقط — نحن نوفر حلولًا ذكية مثل حفظ المحادثات من تيليجرام، إدارة المحتوى، والمزيد من الأدوات المتقدمة التي تساعدك على تعزيز تجربتك في عالم التواصل الاجتماعي. استكشف خدماتنا المتنوعة التي تشمل تحليل الحسابات، أرشفة القصص، وتنبيهات فورية عبر التليجرام",
+      report: "تقرير سناب شات",
+      report_desc: "تحليل شامل لتقارير سناب شات لتتبع الأداء واتخاذ القرارات الذكية.",
+      spotlight: "نشر إلى الأضواء",
+      spotlight_desc: "عرض قصص مميزة بطريقة جذابة تساعدك على جذب المزيد من المتابعين.",
+      extra: "خدمة إضافية",
+      extra_desc: "وصف موجز للخدمة الإضافية التي نقدمها لتعزيز تجربتك.",
+      telegramSaveTitle: "حفظ من التيليجرام",
+      telegramSaveDesc: "حفظ الصور و الفديوهات حتي لو مقفلة ميزة الحفظ في القناة بطريقة آمنة وسريعة",
+      hashtagMonitorTitle: "ارسل ستريك بسرعة",
+      hashtagMonitorDesc: "ارسل ستريك للكل بسرعة عالية وبضغطة واحدة فقط.",
+      btn: "الدخول للخدمة",
+      switch: "🌐 العربية"
+    },
+    en: {
+      title: "Our Premium Services",
+      page_subtitle: "Our services are not limited to Snapchat only — we provide smart solutions like saving chats from Telegram, content management, and more advanced tools to enhance your social media experience. Explore our diverse services including account analytics, story archiving, and instant Telegram notifications.",
+      report: "Snapchat Report",
+      report_desc: "Comprehensive analytics to track your Snapchat performance and make smart decisions.",
+      spotlight: "Post to Spotlight",
+      spotlight_desc: "Feature your stories in an attractive way to grow your audience.",
+      extra: "Extra Service",
+      extra_desc: "A brief description of the extra service we provide to enhance your experience.",
+      telegramSaveTitle: "Save from Telegram",
+      telegramSaveDesc: "Save photos and videos even if the save feature is disabled in the channel, safely and quickly.",
+      hashtagMonitorTitle: "Fast Streak Sender",
+      hashtagMonitorDesc: "Send streaks to everyone quickly with just one tap.",
+      btn: "Access Service",
+      switch: "🌐 English"
+    }
+  };
+
+  function toggleLang() {
+    currentLang = currentLang === 'ar' ? 'en' : 'ar';
+    const t = translations[currentLang];
+    document.getElementById("pageTitle").innerText = t.title;
+    document.getElementById("pageSubtitle").innerText = t.page_subtitle;
+    document.getElementById("reportTitle").innerText = t.report;
+    document.getElementById("reportDesc").innerText = t.report_desc;
+    document.getElementById("spotlightTitle").innerText = t.spotlight;
+    document.getElementById("spotlightDesc").innerText = t.spotlight_desc;
+    document.getElementById("extraTitle").innerText = t.extra;
+    document.getElementById("extraDesc").innerText = t.extra_desc;
+    document.getElementById("telegramSaveTitle").innerText = t.telegramSaveTitle;
+    document.getElementById("telegramSaveDesc").innerText = t.telegramSaveDesc;
+    document.getElementById("hashtagMonitorTitle").innerText = t.hashtagMonitorTitle;
+    document.getElementById("hashtagMonitorDesc").innerText = t.hashtagMonitorDesc;
+    document.querySelectorAll(".serviceBtn").forEach(btn => btn.innerText = t.btn);
+    document.getElementById("langSwitch").innerText = t.switch;
+  }
+</script>
+</body>
+</html>

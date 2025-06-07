@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Custom Service Request</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen p-6" style="background-color: #fcbc14;">
+  <div class="flex justify-center mb-6">
+    <img src="{{ url_for('static', filename='logo-snap.png') }}" alt="Snapchat Logo" class="w-16 h-16" />
+  </div>
+
+  <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-lg p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+    
+    <div class="col-span-1 flex items-center justify-center">
+      <div class="relative w-[280px] h-[580px] mx-auto border-[14px] border-black rounded-[40px] overflow-hidden shadow-xl bg-black">
+        <div class="absolute top-[6px] left-1/2 -translate-x-1/2 w-[60px] h-[6px] bg-gray-800 rounded-full z-10"></div>
+        <div class="absolute inset-0 bg-black flex items-center justify-center">
+          <img id="appPreview" src="{{ url_for('static', filename='snapchat.png') }}" class="object-contain w-full h-full" alt="App preview"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-span-2">
+      <h2 class="text-2xl font-semibold mb-4">طلب خدمة مخصصة</h2>
+      <form id="customRequestForm" class="space-y-4">
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">اختر التطبيق</label>
+          <select name="platform" required class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+            <option value="Snapchat" selected>Snapchat</option>
+            <option value="Telegram">Telegram</option>
+            <option value="Instagram">Instagram</option>
+            <option value="TikTok">TikTok</option>
+            <option value="YouTube">YouTube</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">الميزة المطلوبة</label>
+          <input type="text" name="feature" required class="mt-1 block w-full border border-gray-300 rounded-md p-2" />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">الإصدار المطلوب</label>
+          <select name="os_version" required class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+            <option value="">اختر الجهاز والإصدار</option>
+            <option value="iPhone 7 Plus (iOS 15)">iPhone 7 Plus (iOS 15.7.5)</option>
+            <option value="iPhone X (iOS 16)">iPhone X (iOS 16.7.8)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">حالة الجهاز</label>
+          <select name="jailbreak_status" required class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+            <option value="">اختر حالة الجهاز</option>
+            <option value="With Jailbreak">مع جيلبريك</option>
+            <option value="Without Jailbreak">بدون جيلبريك</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">ملاحظات إضافية</label>
+          <textarea name="notes" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md p-2"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700">معلومات التواصل</label>
+          <input type="text" name="contact_info" required class="mt-1 block w-full border border-gray-300 rounded-md p-2" />
+        </div>
+
+        <button type="submit" class="bg-black text-white font-semibold px-4 py-2 rounded hover:bg-gray-800 shadow">
+          إرسال الطلب
+        </button>
+      </form>
+    </div>
+
+  </div>
+  <script>
+    const appSelect = document.querySelector('select[name="platform"]');
+    const appPreview = document.getElementById('appPreview');
+
+    appSelect.addEventListener('change', function() {
+      const selectedApp = this.value.toLowerCase();
+      if (selectedApp) {
+        appPreview.src = `/static/${selectedApp}.png`;
+        appPreview.classList.add('w-full', 'h-full');
+        appPreview.classList.remove('w-20', 'h-20');
+      } else {
+        appPreview.src = '/static/icons8-apple-logo-150.png';
+        appPreview.classList.add('w-20', 'h-20');
+        appPreview.classList.remove('w-full', 'h-full');
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+  appPreview.src = '/static/snapchat.png';
+  document.getElementById("customRequestForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const jsonData = {};
+    formData.forEach((value, key) => jsonData[key] = value);
+
+    const response = await fetch("/submit-custom-request", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(jsonData)
+    });
+
+    if (response.ok) {
+      window.location.href = "/success";
+    } else {
+      const result = await response.json();
+      alert(result.error || "حدث خطأ أثناء الإرسال");
+    }
+  });
+});
+  </script>
+</body>
+</html>

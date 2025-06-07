@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>تم الإرسال</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#fcbc14] min-h-screen p-6">
+  <div class="flex justify-center mb-6">
+    <img src="{{ url_for('static', filename='logo-snap.png') }}" alt="Snapchat Logo" class="w-16 h-16" />
+  </div>
+  <div class="max-w-xl mx-auto bg-white shadow-lg rounded-lg p-8 text-center">
+    <h1 class="text-2xl font-bold text-green-700 mb-2">✅ تم إرسال الطلب بنجاح</h1>
+    <p class="text-gray-700 mb-4">سنقوم بمراجعة طلبك والرد عليك في أقرب وقت ممكن</p>
+    <a href="/" class="bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition">العودة للرئيسية</a>
+  </div>
+</body>
+</html>
