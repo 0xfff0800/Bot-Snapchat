@@ -42,6 +42,30 @@ Watch the demo on YouTube:
 * 🌐 Ngrok
 * 📱 Real iPhone connected via USB
 
+### 📂 WebDriverAgent Setup
+
+To enable Appium to communicate with your real iPhone, you must configure **WebDriverAgent**:
+
+1. Clone the WebDriverAgent project:
+
+```bash
+git clone https://github.com/appium/WebDriverAgent.git
+```
+
+2. Open `WebDriverAgent.xcodeproj` in Xcode.
+
+3. Set the **Team** in Xcode project settings for both:
+   - `WebDriverAgentLib`
+   - `WebDriverAgentRunner`
+
+4. Ensure the **Bundle Identifier** is unique (e.g., `com.yourname.WebDriverAgentRunner`).
+
+5. Connect your iPhone and select it as the build target.
+
+6. Run the `WebDriverAgentRunner` target on your device (⌘ + R).
+
+> Once deployed successfully, Appium will be able to drive the Snapchat app through this bridge.
+
 ### 🛠️ Setup Steps
 
 1. Connect a real iOS device via USB.
@@ -114,3 +138,9 @@ options.use_new_wda = True
 To request the service or contribute to its development:
 
 📨 Telegram : [Click here](https://t.me/flaah999)
+
+---
+
+## 🏷️ Tags
+
+\#SmartTools #AutoStreak #Telegram #Snapchat #iOS #Bots #Appium #DigitalServices
